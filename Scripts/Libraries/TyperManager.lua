@@ -12,6 +12,10 @@ local functions = {
                 table.remove(typer.letters, j)
             end
         end
+        if (typer.portrait.img) then
+            typer.portrait.img:Destroy()
+            typer.portrait.img = nil
+        end
         typer.cantype = true
         typer.time = 4
         typer.sleep = 4
@@ -162,6 +166,9 @@ local functions = {
                         letter.char:release()
                     end
                     table.remove(typer.letters, j)
+                end
+                if (typer.portrait.img) then
+                    typer.portrait.img:Destroy()
                 end
                 typer.bubble.main_rect_h:Remove()
                 typer.bubble.main_rect_v:Remove()
@@ -417,6 +424,11 @@ function typers.CreateText(sentences, position, layer, bubblesize, progressmode)
     }
     typer.stencils = {}
     typer.shaders = {}
+    typer.portrait = {
+        img = nil,
+        files = {},
+        frame = 1
+    }
 
     -- Callback functions.
     typer.OnComplete = function() end
@@ -532,6 +544,31 @@ function typers.CreateText(sentences, position, layer, bubblesize, progressmode)
                                 end
                             elseif (command_head == "alpha") then
                                 typer.alpha = tonumber(command_body)
+                            elseif (command_head == "portrait") then
+                                if (command_body:lower() == "none") then
+                                    typer.portrait.img:Destroy()
+                                    typer.portrait.img = nil
+                                else
+                                    --[[
+                                        [portrait:{filename1, filename2, ...},frame]
+                                    ]]
+                                    local filenames = {}
+                                    local content = string.match(command_body, "{(.-)}")
+                                    if content then
+                                        for filename in string.gmatch(content, "[^,]+") do
+                                            table.insert(filenames, filename:match("^%s*(.-)%s*$"))
+                                        end
+                                    end
+                                    local frame = tonumber(command_body:sub(command_body:find("}") + 2))
+
+                                    local p = sprites.CreateSprite(filenames[1], typer.layer - 0.00002)
+                                    p:SetAnimation(filenames, frame, "oneshot")
+                                    typer.portrait = {
+                                        img = p,
+                                        files = filenames,
+                                        frame = frame
+                                    }
+                                end
                             elseif (command_head == "offset") then
                                 local index, x, y
                                 index = command_body:sub(1, command_body:find(",") - 1)
@@ -707,6 +744,9 @@ function typers.CreateText(sentences, position, layer, bubblesize, progressmode)
                     if (typer.cantype) then
                         if (typer.OnUpdating) then
                             typer.OnUpdating()
+                        end
+                        if (typer.portrait.img) then
+                            typer.portrait.img:SetAnimation(typer.portrait.files, typer.portrait.frame, "oneshot")
                         end
                         if (typer.canvoice and not typer.skipping) then
                             if (#typer.voices > 0) then

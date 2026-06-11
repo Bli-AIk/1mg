@@ -10,9 +10,13 @@ local ow = require("Scripts.Libraries.Overworld.InitWorld")
 ow.InitMusic("mus_house1.ogg")
 ow.Init("Maps/ruins_0.lua", "scene_ow_new")
 ow.DEBUG = true
-ow.ENCOUNTER = true
+ow.ENCOUNTER = false
 ow.InitEncounter(FLAG.ruins_killed, 80, 40, 3)
 ow.SetBattleScene("Battle/scene_battle_ow", "ruins_killed")
+
+local bulface = sprites.CreateSprite("bullet.png", 100000)
+bulface:Scale(4, 4)
+bulface.alpha = 0
 
 -- This is a fake scene for testing purposes.
 function SCENE.load()
@@ -56,7 +60,17 @@ function SCENE.update(dt)
     end
     if (ow.getInteractResult("chest", 2)) then
         if (keyboard.GetState("confirm") == 1) then
-            ow.dialogNew({"* Don't touch that chest!"})
+            local a = ow.dialogNew({"* Don't touch that chest!"})
+            a.typer.x = _CAMERA_.x + 200
+            bulface:MoveTo(a.white.x - a.white.xscale / 2 + 80, a.white.y)
+            bulface.alpha = 1
+            a.typer.OnComplete = function()
+                bulface.alpha = 0
+                oworld.heart.alpha = 0
+                a.white:Destroy()
+                a.black:Destroy()
+                oworld.NEXTSTATE = "Controlling"
+            end
         end
     end
     if (ow.getInteractResult("sign", 1)) then

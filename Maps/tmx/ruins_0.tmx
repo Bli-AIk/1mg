@@ -4,7 +4,7 @@
   <export target="../ruins_0.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="unnamed_3482" tilewidth="20" tileheight="20" tilecount="72" columns="8">
-  <image source="../../../../Create Your Frisk/CYF.v0.6.6.LTS.1/CYF.v0.6.6.LTS.1/Mods/Overworld Editor/Sprites/Scene/Ruins/unnamed_3482.png" width="160" height="180"/>
+  <image source="../images/unnamed_3482.png" width="160" height="180"/>
   <wangsets>
    <wangset name="big_wall" type="corner" tile="-1">
     <wangcolor name="idk" color="#ff0000" tile="-1" probability="1"/>

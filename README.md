@@ -19,6 +19,24 @@ Most similar templates only provide a basic combat prototype. `SoulEngine` goes 
 *   **Beginner-friendly documentation** - The project ships with a large documentation set covering setup, core systems, advanced features, battle development, overworld development, localization, packaging, and error handling.
 *   **Built for actual projects** - Includes release configuration, custom error handling, packaging tools, localization support, and API/network-related extensions.
 
+## Documentation
+
+Whether you're at your desk or on the go, ***the docs are always within reach.***
+The repository includes a full documentation site in the `Documentation` folder, covering topics such as:
+
+*   getting started
+*   Lua basics for beginners
+*   basic engine workflow
+*   advanced development
+*   battle scene development
+*   overworld development
+*   localization
+*   packaging and release
+*   common error handling
+
+- Online (GitHub) — always up to date, check here for the latest changes: https://anskiyyrenew.github.io/SoulEngine-Documentation/
+- Offline (included in the project) — open the Documentation/ folder locally, works without internet access
+
 ## Feature Overview
 
 ### Core Gameplay Systems
@@ -128,20 +146,6 @@ For development and testing, it is recommended to use an editor like [Visual Stu
 ### On Mobile (Android)
 
 You can browse and edit the project's script files using a capable file manager or code editing tool on Android, such as [MT Manager](https://mt2.cn).
-
-## Documentation
-
-The repository includes a full documentation site in the `Documentation` folder, covering topics such as:
-
-*   getting started
-*   Lua basics for beginners
-*   basic engine workflow
-*   advanced development
-*   battle scene development
-*   overworld development
-*   localization
-*   packaging and release
-*   common error handling
 
 ## Credits
 

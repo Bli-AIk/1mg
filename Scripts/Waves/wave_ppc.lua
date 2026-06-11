@@ -24,6 +24,7 @@ local mask = masks.New("rectangle", 320, 320, 155, 130, 0, 1)
 local poseur = sprites.CreateSprite("poseur.png", global:GetVariable("LAYER"))
 poseur.isBullet = true
 poseur.rotation = 30
+poseur:SetPPCollision(true)
 
 --local bul = sprites.CreateSprite("px.png", global:GetVariable("LAYER"))
 --bul:Scale(5, 200)
