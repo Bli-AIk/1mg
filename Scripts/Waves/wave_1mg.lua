@@ -2,24 +2,6 @@
 
 local Arena = battle.mainarena
 local Player = battle.Player
-
-local mus, ins = audio.PlayMusic("1mg/marenol_1mg.mp3", 0.5, true)
-local Beat = require("Scripts.Libraries.Beat")
-
-function setupBasicBeatTracking()
-    Beat.SetBPM(140)
-
-    Beat.RegisterEvent("beat", function(current_beat)
-        local beat_sound = current_beat % 4 == 1 and "metronome_high.wav" or "metronome_low.wav"
-        audio.PlaySound("Beats/" .. beat_sound, 1.0, false)
-        print(string.format("第 %d 拍触发！", current_beat))
-    end)
-
-    Beat.RegisterEvent("reset", function(beat)
-        print(string.format("节拍重置至：%.2f", beat))
-    end)
-end
-
 local wave = {
     ENDED = false,
     objects = {}
@@ -43,8 +25,6 @@ Player.sprite:MoveTo(320, 320)
 
 local mask = masks.New("rectangle", 320, 320, 155, 130, 0, 1)
 
-setupBasicBeatTracking()
-
 function wave.update(dt)
     mask:Follow(Arena.black)
 
@@ -55,7 +35,6 @@ function wave.update(dt)
         end
     end
 
-    Beat.Update(dt)
 end
 
 function wave.draw()

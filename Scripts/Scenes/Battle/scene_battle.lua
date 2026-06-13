@@ -6,6 +6,23 @@ battle = b.Init("Scripts.Libraries.Game.Encounter")
 atkp = require("Scripts.Libraries.Battle.Patterns.template")
 b.SetAtkPattern(atkp)
 
+local mus, ins = audio.PlayMusic("1mg/marenol_1mg.mp3", 0.5, true)
+local Beat = require("Scripts.Libraries.Beat")
+
+function setupBasicBeatTracking()
+    Beat.SetBPM(140)
+
+    Beat.RegisterEvent("beat", function(current_beat)
+        local beat_sound = current_beat % 4 == 1 and "metronome_high.wav" or "metronome_low.wav"
+        audio.PlaySound("Beats/" .. beat_sound, 1.0, false)
+        print(string.format("第 %d 拍触发！", current_beat))
+    end)
+
+    Beat.RegisterEvent("reset", function(beat)
+        print(string.format("节拍重置至：%.2f", beat))
+    end)
+end
+
 local function HandleActions(enemy, action)
     local battle = b.battle
     if not battle or not battle.Enemies then return end
@@ -86,16 +103,13 @@ b.DefenseEnding          = DefenseEnding
 b.EnteringStateInherited = EnteringState
 b.OnHit                  = OnHit
 
-
-
-
-
 -- This is a fake scene for testing purposes.
 function SCENE.load()
     -- Load any resources needed for this scene here.
     -- For example, you might load images, sounds, etc.
 end
 
+setupBasicBeatTracking()
 -- This function is called to update the scene.
 function SCENE.update(dt)
     -- Update any game logic for this scene here.
@@ -105,6 +119,7 @@ function SCENE.update(dt)
     end
 
     b.Update(dt)
+    Beat.Update(dt)
 end
 
 -- This function is called to draw the scene.
