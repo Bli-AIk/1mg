@@ -1,0 +1,9 @@
+[keys.normal]
+# Alt-r: 通过触发文件让运行中的 Love2D 实例热更新当前场景
+"A-r" = ':sh root="$(git rev-parse --show-toplevel)" && touch "$root/.reload_trigger"'
+
+[keys.normal.space]
+# 启动 Love2D 游戏并打开当前终端类型的新窗口以显示日志
+l = ':sh root="$(git rev-parse --show-toplevel)" && "$root/.helix/run-love-terminal.sh" >/dev/null 2>&1'
+# 同上但关了游戏还开着终端
+L = ':sh root="$(git rev-parse --show-toplevel)" && "$root/.helix/run-love-terminal.sh" --hold >/dev/null 2>&1'
