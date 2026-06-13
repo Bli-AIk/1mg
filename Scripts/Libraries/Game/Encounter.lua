@@ -91,8 +91,8 @@ local encounter = {
     Player = PlayerLib.Init({
         name = "Chara",
         lv = 1,
-        maxhp = 100,
-        hp = 100
+        maxhp = 20,
+        hp = 20
     }),
 
     -- And don't touch this one...
